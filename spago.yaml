@@ -1,0 +1,13 @@
+package:
+  name: "node-event-emitter"
+  dependencies:
+    - effect
+    - either
+    - functions
+    - maybe
+    - nullable
+    - prelude
+    - unsafe-coerce
+  test:
+    main: "Test.Main"
+    dependencies: []

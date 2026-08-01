@@ -84,7 +84,10 @@ import Unsafe.Coerce (unsafeCoerce)
 foreign import data EventEmitter :: Type
 
 -- | Create a new event emitter
-foreign import new :: Effect EventEmitter
+foreign import newImpl :: Effect EventEmitter
+
+new :: Effect EventEmitter
+new = newImpl
 
 foreign import data SymbolOrStr :: Type
 
