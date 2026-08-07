@@ -58,7 +58,9 @@ module Node.EventEmitter
   , listenerCount
   , setMaxListeners
   , setUnlimitedListeners
-  , unsafeEmitFn
+  , unsafeEmitFn1
+  , unsafeEmitFn2
+  , unsafeEmitFn3
   , EventHandle(..)
   , newListenerH
   , removeListenerH
@@ -77,7 +79,7 @@ import Prelude
 import Data.Either (Either(..))
 import Data.Function.Uncurried (Fn3, runFn3)
 import Effect (Effect)
-import Effect.Uncurried (EffectFn1, EffectFn2, EffectFn3, EffectFn4, mkEffectFn1, mkEffectFn4, runEffectFn1, runEffectFn2, runEffectFn3, runEffectFn4)
+import Effect.Uncurried (EffectFn1, EffectFn2, EffectFn3, EffectFn4, EffectFn5, EffectFn6, EffectFn7, EffectFn8, EffectFn9, EffectFn10, mkEffectFn1, mkEffectFn2, mkEffectFn3, mkEffectFn4, mkEffectFn5, mkEffectFn6, mkEffectFn7, mkEffectFn8, mkEffectFn9, mkEffectFn10, runEffectFn1, runEffectFn2, runEffectFn3, runEffectFn4)
 import Node.Symbol (JsSymbol)
 import Unsafe.Coerce (unsafeCoerce)
 
@@ -153,7 +155,7 @@ setUnlimitedListeners = setMaxListeners 0
 -- | Synchronously calls each of the listeners registered for the event named `eventName`, 
 -- | in the order they were registered, passing the supplied arguments to each.
 -- | Returns `true` if the event had listeners, `false` otherwise.
-foreign import unsafeEmitFn :: forall f. EventEmitter -> f Boolean
+
 
 -- | Packs all the type information we need to call `on`/`once`/`prependListener`/`prependOnceListener`
 -- | with the correct callback function type.
@@ -195,14 +197,11 @@ removeListenerH = EventHandle "removeListener" $ \cb -> mkEffectFn1 \jsSymbol ->
 -- | -- sometime later...
 -- | removeLoggerCallback
 -- | ```
-on
-  :: forall emitter psCb jsCb
-   . EventHandle emitter psCb jsCb
-  -> psCb
-  -> emitter
-  -> Effect (Effect Unit)
-on (EventHandle eventName toJsCb) psCb eventEmitter =
-  runEffectFn4 subscribeSameFunction unsafeOn (unsafeCoerce eventEmitter) eventName $ toJsCb psCb
+on :: forall event emitter a. EventHandle emitter a event -> a -> emitter -> Effect (Effect Unit)
+on (EventHandle eventName toJsCb) psCb eventEmitter = do
+  let jsCb = toJsCb psCb
+  runEffectFn3 unsafeOn (unsafeCoerce eventEmitter) eventName jsCb
+  pure $ runEffectFn3 unsafeOff (unsafeCoerce eventEmitter) eventName jsCb
 
 -- | Adds the callback to the **end** of the `listeners` array and provides no way to remove the listener in the future.
 -- | If you need a callback to remove the listener in the future, use `on`.
@@ -232,14 +231,11 @@ on_ (EventHandle eventName toJsCb) psCb eventEmitter =
 -- | -- sometime later...
 -- | removeLoggerCallback
 -- | ```
-once
-  :: forall emitter psCb jsCb
-   . EventHandle emitter psCb jsCb
-  -> psCb
-  -> emitter
-  -> Effect (Effect Unit)
-once (EventHandle eventName toJsCb) psCb eventEmitter =
-  runEffectFn4 subscribeSameFunction unsafeOnce (unsafeCoerce eventEmitter) eventName $ toJsCb psCb
+once :: forall event emitter a. EventHandle emitter a event -> a -> emitter -> Effect (Effect Unit)
+once (EventHandle eventName toJsCb) psCb eventEmitter = do
+  let jsCb = toJsCb psCb
+  runEffectFn3 unsafeOnce (unsafeCoerce eventEmitter) eventName jsCb
+  pure $ runEffectFn3 unsafeOff (unsafeCoerce eventEmitter) eventName jsCb
 
 -- | Adds the listener to the **end** of the `listeners` array. The listener will be removed after it is invoked once.
 -- | Returns a callback that will remove the listener from the event emitter's listeners array.
@@ -271,14 +267,11 @@ once_ (EventHandle eventName toJsCb) psCb eventEmitter =
 -- | -- sometime later...
 -- | removeLoggerCallback
 -- | ```
-prependListener
-  :: forall emitter psCb jsCb
-   . EventHandle emitter psCb jsCb
-  -> psCb
-  -> emitter
-  -> Effect (Effect Unit)
-prependListener (EventHandle eventName toJsCb) psCb eventEmitter =
-  runEffectFn4 subscribeSameFunction unsafePrependListener (unsafeCoerce eventEmitter) eventName $ toJsCb psCb
+prependListener :: forall event emitter a. EventHandle emitter a event -> a -> emitter -> Effect (Effect Unit)
+prependListener (EventHandle eventName toJsCb) psCb eventEmitter = do
+  let jsCb = toJsCb psCb
+  runEffectFn3 unsafePrependListener (unsafeCoerce eventEmitter) eventName jsCb
+  pure $ runEffectFn3 unsafeOff (unsafeCoerce eventEmitter) eventName jsCb
 
 -- | Adds the listener to the **start** of the `listeners` array.
 -- | Returns a callback that will remove the listener from the event emitter's listeners array.
@@ -310,14 +303,11 @@ prependListener_ (EventHandle eventName toJsCb) psCb eventEmitter =
 -- | -- sometime later...
 -- | removeLoggerCallback
 -- | ```
-prependOnceListener
-  :: forall emitter psCb jsCb
-   . EventHandle emitter psCb jsCb
-  -> psCb
-  -> emitter
-  -> Effect (Effect Unit)
-prependOnceListener (EventHandle eventName toJsCb) psCb eventEmitter =
-  runEffectFn4 subscribeSameFunction unsafePrependOnceListener (unsafeCoerce eventEmitter) eventName $ toJsCb psCb
+prependOnceListener :: forall event emitter a. EventHandle emitter a event -> a -> emitter -> Effect (Effect Unit)
+prependOnceListener (EventHandle eventName toJsCb) psCb eventEmitter = do
+  let jsCb = toJsCb psCb
+  runEffectFn3 unsafePrependOnceListener (unsafeCoerce eventEmitter) eventName jsCb
+  pure $ runEffectFn3 unsafeOff (unsafeCoerce eventEmitter) eventName jsCb
 
 -- | Adds the listener to the **start** of the `listeners` array. The listener will be removed after it is invoked once.
 -- | Returns a callback that will remove the listener from the event emitter's listeners array.
@@ -337,23 +327,60 @@ prependOnceListener_
 prependOnceListener_ (EventHandle eventName toJsCb) psCb eventEmitter =
   runEffectFn3 unsafePrependOnceListener (unsafeCoerce eventEmitter) eventName $ toJsCb psCb
 
--- | Internal function that ensures the JS callback function is the same one
--- | used when both adding it and removing it from the listeners array.
--- | Do not export this.
-subscribeSameFunction
-  :: forall emitter jsCb
-   . EffectFn4
-       (EffectFn3 emitter String jsCb Unit)
-       emitter
-       String
-       jsCb
-       (Effect Unit)
-subscribeSameFunction = mkEffectFn4 \onXFn eventEmitter eventName jsCb -> do
-  runEffectFn3 onXFn (unsafeCoerce eventEmitter) eventName jsCb
-  pure $ runEffectFn3 unsafeOff (unsafeCoerce eventEmitter) eventName jsCb
+foreign import gopursUnsafeOn :: forall f. EventEmitter -> String -> f -> Effect Unit
+foreign import gopursUnsafeOff :: forall f. EventEmitter -> String -> f -> Effect Unit
+foreign import gopursUnsafeOnce :: forall f. EventEmitter -> String -> f -> Effect Unit
+foreign import gopursUnsafePrependListener :: forall f. EventEmitter -> String -> f -> Effect Unit
+foreign import gopursUnsafePrependOnceListener :: forall f. EventEmitter -> String -> f -> Effect Unit
 
-foreign import unsafeOn :: forall f. EffectFn3 EventEmitter String f Unit
-foreign import unsafeOff :: forall f. EffectFn3 EventEmitter String f Unit
-foreign import unsafeOnce :: forall f. EffectFn3 EventEmitter String f Unit
-foreign import unsafePrependListener :: forall f. EffectFn3 EventEmitter String f Unit
-foreign import unsafePrependOnceListener :: forall f. EffectFn3 EventEmitter String f Unit
+unsafeOn :: forall f. EffectFn3 EventEmitter String f Unit
+unsafeOn = mkEffectFn3 \a b c -> gopursUnsafeOn a b c
+
+unsafeOff :: forall f. EffectFn3 EventEmitter String f Unit
+unsafeOff = mkEffectFn3 \a b c -> gopursUnsafeOff a b c
+
+unsafeOnce :: forall f. EffectFn3 EventEmitter String f Unit
+unsafeOnce = mkEffectFn3 \a b c -> gopursUnsafeOnce a b c
+
+unsafePrependListener :: forall f. EffectFn3 EventEmitter String f Unit
+unsafePrependListener = mkEffectFn3 \a b c -> gopursUnsafePrependListener a b c
+
+unsafePrependOnceListener :: forall f. EffectFn3 EventEmitter String f Unit
+unsafePrependOnceListener = mkEffectFn3 \a b c -> gopursUnsafePrependOnceListener a b c
+
+foreign import gopursUnsafeEmitFn1 :: EventEmitter -> String -> Effect Boolean
+foreign import gopursUnsafeEmitFn2 :: forall a. EventEmitter -> String -> a -> Effect Boolean
+foreign import gopursUnsafeEmitFn3 :: forall a b. EventEmitter -> String -> a -> b -> Effect Boolean
+foreign import gopursUnsafeEmitFn4 :: forall a b c. EventEmitter -> String -> a -> b -> c -> Effect Boolean
+foreign import gopursUnsafeEmitFn5 :: forall a b c d. EventEmitter -> String -> a -> b -> c -> d -> Effect Boolean
+foreign import gopursUnsafeEmitFn6 :: forall a b c d e. EventEmitter -> String -> a -> b -> c -> d -> e -> Effect Boolean
+foreign import gopursUnsafeEmitFn7 :: forall a b c d e f. EventEmitter -> String -> a -> b -> c -> d -> e -> f -> Effect Boolean
+foreign import gopursUnsafeEmitFn8 :: forall a b c d e f g. EventEmitter -> String -> a -> b -> c -> d -> e -> f -> g -> Effect Boolean
+foreign import gopursUnsafeEmitFn9 :: forall a b c d e f g h. EventEmitter -> String -> a -> b -> c -> d -> e -> f -> g -> h -> Effect Boolean
+
+unsafeEmitFn1 :: EffectFn2 EventEmitter String Boolean
+unsafeEmitFn1 = mkEffectFn2 \a b -> gopursUnsafeEmitFn1 a b
+
+unsafeEmitFn2 :: forall a. EffectFn3 EventEmitter String a Boolean
+unsafeEmitFn2 = mkEffectFn3 \a b c -> gopursUnsafeEmitFn2 a b c
+
+unsafeEmitFn3 :: forall a b. EffectFn4 EventEmitter String a b Boolean
+unsafeEmitFn3 = mkEffectFn4 \a b c d -> gopursUnsafeEmitFn3 a b c d
+
+unsafeEmitFn4 :: forall a b c. EffectFn5 EventEmitter String a b c Boolean
+unsafeEmitFn4 = mkEffectFn5 \a b c d e -> gopursUnsafeEmitFn4 a b c d e
+
+unsafeEmitFn5 :: forall a b c d. EffectFn6 EventEmitter String a b c d Boolean
+unsafeEmitFn5 = mkEffectFn6 \a b c d e f -> gopursUnsafeEmitFn5 a b c d e f
+
+unsafeEmitFn6 :: forall a b c d e. EffectFn7 EventEmitter String a b c d e Boolean
+unsafeEmitFn6 = mkEffectFn7 \a b c d e f g -> gopursUnsafeEmitFn6 a b c d e f g
+
+unsafeEmitFn7 :: forall a b c d e f. EffectFn8 EventEmitter String a b c d e f Boolean
+unsafeEmitFn7 = mkEffectFn8 \a b c d e f g h -> gopursUnsafeEmitFn7 a b c d e f g h
+
+unsafeEmitFn8 :: forall a b c d e f g. EffectFn9 EventEmitter String a b c d e f g Boolean
+unsafeEmitFn8 = mkEffectFn9 \a b c d e f g h i -> gopursUnsafeEmitFn8 a b c d e f g h i
+
+unsafeEmitFn9 :: forall a b c d e f g h. EffectFn10 EventEmitter String a b c d e f g h Boolean
+unsafeEmitFn9 = mkEffectFn10 \a b c d e f g h i j -> gopursUnsafeEmitFn9 a b c d e f g h i j

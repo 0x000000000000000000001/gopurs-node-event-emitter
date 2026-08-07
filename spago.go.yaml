@@ -10,7 +10,12 @@ package:
     - unsafe-coerce
   test:
     main: "Test.Main"
-    dependencies: []
+    dependencies:
+      - aff
+      - spec
+      - foldable-traversable
+      - tuples
+      - refs
 
 workspace:
   packageSet:

@@ -15,7 +15,13 @@
           ]
         },
         "test": {
-          "dependencies": []
+          "dependencies": [
+            "aff",
+            "foldable-traversable",
+            "refs",
+            "spec",
+            "tuples"
+          ]
         }
       }
     },
@@ -805,6 +811,59 @@
     }
   },
   "packages": {
+    "aff": {
+      "type": "local",
+      "path": "../gopurs-aff",
+      "dependencies": [
+        "arrays",
+        "bifunctors",
+        "control",
+        "datetime",
+        "effect",
+        "either",
+        "exceptions",
+        "foldable-traversable",
+        "functions",
+        "maybe",
+        "newtype",
+        "parallel",
+        "prelude",
+        "refs",
+        "tailrec",
+        "transformers",
+        "unsafe-coerce"
+      ]
+    },
+    "ansi": {
+      "type": "registry",
+      "version": "7.0.0",
+      "integrity": "sha256-tOUaXJFzPSfBVAqLI8hc+Tz2M1rg16cXqyHaK/3SmFg=",
+      "dependencies": [
+        "foldable-traversable",
+        "lists",
+        "prelude"
+      ]
+    },
+    "arrays": {
+      "type": "local",
+      "path": "../gopurs-arrays",
+      "dependencies": [
+        "bifunctors",
+        "control",
+        "foldable-traversable",
+        "functions",
+        "maybe",
+        "nonempty",
+        "partial",
+        "prelude",
+        "safe-coerce",
+        "st",
+        "tailrec",
+        "tuples",
+        "unfoldable",
+        "unsafe-coerce"
+      ]
+    },
     "assert": {
       "type": "local",
       "path": "../gopurs-assert",
@@ -812,6 +871,43 @@
         "console",
         "effect",
         "prelude"
+      ]
+    },
+    "avar": {
+      "type": "local",
+      "path": "../gopurs-avar",
+      "dependencies": [
+        "aff",
+        "effect",
+        "either",
+        "exceptions",
+        "functions",
+        "maybe"
+      ]
+    },
+    "bifunctors": {
+      "type": "registry",
+      "version": "6.1.0",
+      "integrity": "sha256-CvZRb8uI75eKIqiYntR+k05Wk6tKlMS5w8sCA2AFna0=",
+      "dependencies": [
+        "const",
+        "either",
+        "newtype",
+        "prelude",
+        "tuples"
+      ]
+    },
+    "catenable-lists": {
+      "type": "local",
+      "path": "../gopurs-catenable-lists",
+      "dependencies": [
+        "control",
+        "foldable-traversable",
+        "lists",
+        "maybe",
+        "prelude",
+        "tuples",
+        "unfoldable"
       ]
     },
     "console": {
@@ -822,6 +918,28 @@
         "prelude"
       ]
     },
+    "const": {
+      "type": "registry",
+      "version": "6.0.0",
+      "integrity": "sha256-S+m0lQsxnji0z1XRUmkn+3RFuWJ5CXWuIr1u3i8Bfoc=",
+      "dependencies": [
+        "invariant",
+        "newtype",
+        "prelude"
+      ]
+    },
+    "contravariant": {
+      "type": "registry",
+      "version": "6.0.0",
+      "integrity": "sha256-nuckEWqL80NaPmR/l9AUyrfycNh18XcvlZV9PAamwqc=",
+      "dependencies": [
+        "const",
+        "either",
+        "newtype",
+        "prelude",
+        "tuples"
+      ]
+    },
     "control": {
       "type": "registry",
       "version": "6.0.0",
@@ -829,6 +947,49 @@
       "dependencies": [
         "newtype",
         "prelude"
+      ]
+    },
+    "datetime": {
+      "type": "local",
+      "path": "../gopurs-datetime",
+      "dependencies": [
+        "bifunctors",
+        "control",
+        "either",
+        "enums",
+        "foldable-traversable",
+        "functions",
+        "gen",
+        "integers",
+        "lists",
+        "maybe",
+        "newtype",
+        "numbers",
+        "ordered-collections",
+        "partial",
+        "prelude",
+        "tuples"
+      ]
+    },
+    "debug": {
+      "type": "registry",
+      "version": "6.0.2",
+      "integrity": "sha256-d/EzRm/J2JyzvlIeo2Ex78Y7HRB0IXBitnVJywL4gHk=",
+      "dependencies": [
+        "functions",
+        "prelude"
+      ]
+    },
+    "distributive": {
+      "type": "registry",
+      "version": "6.0.0",
+      "integrity": "sha256-netyJK4B32PDYHD0tF2AenKgo3urzbI770ycM0pArAo=",
+      "dependencies": [
+        "identity",
+        "newtype",
+        "prelude",
+        "tuples",
+        "type-equality"
       ]
     },
     "effect": {
@@ -849,10 +1010,164 @@
         "prelude"
       ]
     },
+    "enums": {
+      "type": "local",
+      "path": "../gopurs-enums",
+      "dependencies": [
+        "control",
+        "either",
+        "gen",
+        "maybe",
+        "newtype",
+        "nonempty",
+        "partial",
+        "prelude",
+        "tuples",
+        "unfoldable"
+      ]
+    },
+    "exceptions": {
+      "type": "local",
+      "path": "../gopurs-exceptions",
+      "dependencies": [
+        "effect",
+        "either",
+        "maybe",
+        "prelude"
+      ]
+    },
+    "exists": {
+      "type": "registry",
+      "version": "6.0.0",
+      "integrity": "sha256-vtLbrWNaI+pzx/2fw2AQnCovoLtcosClIhjO26QKkh8=",
+      "dependencies": [
+        "unsafe-coerce"
+      ]
+    },
+    "foldable-traversable": {
+      "type": "local",
+      "path": "../gopurs-foldable-traversable",
+      "dependencies": [
+        "bifunctors",
+        "const",
+        "control",
+        "either",
+        "functors",
+        "identity",
+        "maybe",
+        "newtype",
+        "orders",
+        "prelude",
+        "tuples"
+      ]
+    },
+    "foreign": {
+      "type": "local",
+      "path": "../gopurs-foreign",
+      "dependencies": [
+        "either",
+        "functions",
+        "identity",
+        "integers",
+        "lists",
+        "maybe",
+        "prelude",
+        "strings",
+        "transformers"
+      ]
+    },
+    "fork": {
+      "type": "registry",
+      "version": "6.0.0",
+      "integrity": "sha256-0keBVeZZg1eCZEy/En1CohVW829gQUqKtqBNIRa93/A=",
+      "dependencies": [
+        "aff",
+        "prelude",
+        "transformers"
+      ]
+    },
+    "free": {
+      "type": "registry",
+      "version": "7.1.0",
+      "integrity": "sha256-tUBInfUpRQEw4u94GWcYW7EYdmSdDHSRn88a+C0eltU=",
+      "dependencies": [
+        "catenable-lists",
+        "control",
+        "distributive",
+        "either",
+        "exists",
+        "foldable-traversable",
+        "invariant",
+        "lazy",
+        "maybe",
+        "prelude",
+        "tailrec",
+        "transformers",
+        "tuples",
+        "unsafe-coerce"
+      ]
+    },
     "functions": {
       "type": "local",
       "path": "../gopurs-functions",
       "dependencies": [
+        "prelude"
+      ]
+    },
+    "functors": {
+      "type": "registry",
+      "version": "5.0.0",
+      "integrity": "sha256-W1o/4wcp6S3chodYL8uixlXK2mfr1L+SzM1R+whqUco=",
+      "dependencies": [
+        "bifunctors",
+        "const",
+        "contravariant",
+        "control",
+        "distributive",
+        "either",
+        "invariant",
+        "maybe",
+        "newtype",
+        "prelude",
+        "profunctor",
+        "tuples",
+        "unsafe-coerce"
+      ]
+    },
+    "gen": {
+      "type": "registry",
+      "version": "4.0.0",
+      "integrity": "sha256-kyOateeOtQa07vfTMYeSuCKdelgKE1R65fwKkZ10wsY=",
+      "dependencies": [
+        "either",
+        "foldable-traversable",
+        "identity",
+        "maybe",
+        "newtype",
+        "nonempty",
+        "prelude",
+        "tailrec",
+        "tuples",
+        "unfoldable"
+      ]
+    },
+    "identity": {
+      "type": "registry",
+      "version": "6.0.0",
+      "integrity": "sha256-RY/iXPpxpqvKHYfJeFVNI1J06kohB9rbtWYuha8t0LE=",
+      "dependencies": [
+        "control",
+        "invariant",
+        "newtype",
+        "prelude"
+      ]
+    },
+    "integers": {
+      "type": "local",
+      "path": "../gopurs-integers",
+      "dependencies": [
+        "maybe",
+        "numbers",
         "prelude"
       ]
     },
@@ -863,6 +1178,34 @@
       "dependencies": [
         "control",
         "prelude"
+      ]
+    },
+    "lazy": {
+      "type": "local",
+      "path": "../gopurs-lazy",
+      "dependencies": [
+        "control",
+        "foldable-traversable",
+        "prelude"
+      ]
+    },
+    "lists": {
+      "type": "registry",
+      "version": "7.0.0",
+      "integrity": "sha256-/mGd7wLoU+wsTcqii7SSUByxsvwvjnu2PjwAD47yYb4=",
+      "dependencies": [
+        "bifunctors",
+        "control",
+        "foldable-traversable",
+        "lazy",
+        "maybe",
+        "newtype",
+        "nonempty",
+        "partial",
+        "prelude",
+        "tailrec",
+        "tuples",
+        "unfoldable"
       ]
     },
     "maybe": {
@@ -876,6 +1219,23 @@
         "prelude"
       ]
     },
+    "mmorph": {
+      "type": "registry",
+      "version": "7.0.0",
+      "integrity": "sha256-Cfltaq+tfYjuSoSBN/b8cSQZbvZTqIRs6ebQewbIkGs=",
+      "dependencies": [
+        "bifunctors",
+        "either",
+        "free",
+        "functors",
+        "identity",
+        "maybe",
+        "newtype",
+        "prelude",
+        "transformers",
+        "tuples"
+      ]
+    },
     "newtype": {
       "type": "registry",
       "version": "5.0.0",
@@ -885,15 +1245,119 @@
         "safe-coerce"
       ]
     },
+    "nonempty": {
+      "type": "registry",
+      "version": "7.0.0",
+      "integrity": "sha256-Ctkq8/+KiGqCE53Y/LvibA/coy7ev9HtRZU+GYS7yfQ=",
+      "dependencies": [
+        "control",
+        "foldable-traversable",
+        "maybe",
+        "prelude",
+        "tuples",
+        "unfoldable"
+      ]
+    },
+    "now": {
+      "type": "local",
+      "path": "../gopurs-now",
+      "dependencies": [
+        "datetime",
+        "effect"
+      ]
+    },
     "nullable": {
       "type": "local",
       "path": "../gopurs-nullable",
       "dependencies": [
         "assert",
         "effect",
+        "foreign",
         "functions",
         "maybe",
         "prelude"
+      ]
+    },
+    "numbers": {
+      "type": "local",
+      "path": "../gopurs-numbers",
+      "dependencies": [
+        "functions",
+        "maybe"
+      ]
+    },
+    "ordered-collections": {
+      "type": "registry",
+      "version": "3.2.0",
+      "integrity": "sha256-NaEXc2cz/7lJfxPWEja4XlZbGxuRqJwFKQJjsJf51kQ=",
+      "dependencies": [
+        "arrays",
+        "control",
+        "foldable-traversable",
+        "functions",
+        "gen",
+        "lists",
+        "maybe",
+        "newtype",
+        "partial",
+        "prelude",
+        "safe-coerce",
+        "tailrec",
+        "tuples",
+        "unfoldable"
+      ]
+    },
+    "orders": {
+      "type": "registry",
+      "version": "6.0.0",
+      "integrity": "sha256-nSMxZK7wxyDULkjZqvMyB71mVo6b0AyLLHosDVbv1XM=",
+      "dependencies": [
+        "newtype",
+        "prelude"
+      ]
+    },
+    "parallel": {
+      "type": "registry",
+      "version": "7.0.0",
+      "integrity": "sha256-bAGpVhrFz2IyHkA4MR7+tE/19FZ7dzYBdYPgK5svkqw=",
+      "dependencies": [
+        "control",
+        "effect",
+        "either",
+        "foldable-traversable",
+        "functors",
+        "maybe",
+        "newtype",
+        "prelude",
+        "profunctor",
+        "refs",
+        "transformers"
+      ]
+    },
+    "partial": {
+      "type": "local",
+      "path": "../gopurs-partial",
+      "dependencies": []
+    },
+    "pipes": {
+      "type": "registry",
+      "version": "8.0.0",
+      "integrity": "sha256-dtUNpG8BGVr7pu6mQZyAnUAftUHgNS7f0QH3Kw5UTpQ=",
+      "dependencies": [
+        "aff",
+        "control",
+        "effect",
+        "either",
+        "foldable-traversable",
+        "identity",
+        "lists",
+        "maybe",
+        "mmorph",
+        "newtype",
+        "prelude",
+        "tailrec",
+        "transformers",
+        "tuples"
       ]
     },
     "prelude": {
@@ -901,12 +1365,165 @@
       "path": "../gopurs-prelude",
       "dependencies": []
     },
+    "profunctor": {
+      "type": "registry",
+      "version": "6.0.1",
+      "integrity": "sha256-Ow0mJC+PIIRq/a3mzCWY5vxuTgR/e+Ee68+mWeSRnWY=",
+      "dependencies": [
+        "control",
+        "distributive",
+        "either",
+        "exists",
+        "invariant",
+        "newtype",
+        "prelude",
+        "tuples"
+      ]
+    },
+    "refs": {
+      "type": "local",
+      "path": "../gopurs-refs",
+      "dependencies": [
+        "effect",
+        "prelude"
+      ]
+    },
     "safe-coerce": {
       "type": "registry",
       "version": "2.0.0",
       "integrity": "sha256-EJrxtKt5xC7TYjBZrSBO/J7Aw3DmtilYjt4olpAXWVc=",
       "dependencies": [
         "unsafe-coerce"
+      ]
+    },
+    "spec": {
+      "type": "local",
+      "path": "../gopurs-spec",
+      "dependencies": [
+        "aff",
+        "ansi",
+        "arrays",
+        "avar",
+        "bifunctors",
+        "control",
+        "datetime",
+        "debug",
+        "effect",
+        "either",
+        "exceptions",
+        "foldable-traversable",
+        "fork",
+        "identity",
+        "integers",
+        "lists",
+        "maybe",
+        "newtype",
+        "now",
+        "ordered-collections",
+        "parallel",
+        "pipes",
+        "prelude",
+        "refs",
+        "strings",
+        "tailrec",
+        "transformers",
+        "tuples"
+      ]
+    },
+    "st": {
+      "type": "local",
+      "path": "../gopurs-st",
+      "dependencies": [
+        "partial",
+        "prelude",
+        "tailrec",
+        "unsafe-coerce"
+      ]
+    },
+    "strings": {
+      "type": "local",
+      "path": "../gopurs-strings",
+      "dependencies": [
+        "arrays",
+        "control",
+        "either",
+        "enums",
+        "foldable-traversable",
+        "gen",
+        "integers",
+        "maybe",
+        "newtype",
+        "nonempty",
+        "partial",
+        "prelude",
+        "tailrec",
+        "tuples",
+        "unfoldable",
+        "unsafe-coerce"
+      ]
+    },
+    "tailrec": {
+      "type": "registry",
+      "version": "6.1.0",
+      "integrity": "sha256-xrorCfP0xV1wubs27idQCHQqdvSUuqmmL/am7Ji1wVU=",
+      "dependencies": [
+        "bifunctors",
+        "effect",
+        "either",
+        "identity",
+        "maybe",
+        "partial",
+        "prelude",
+        "refs"
+      ]
+    },
+    "transformers": {
+      "type": "registry",
+      "version": "6.1.0",
+      "integrity": "sha256-QJmgNT/y7ljPHSsXaW4zxF/982BFiQ90KNL1g/NtEOQ=",
+      "dependencies": [
+        "control",
+        "distributive",
+        "effect",
+        "either",
+        "exceptions",
+        "foldable-traversable",
+        "identity",
+        "lazy",
+        "maybe",
+        "newtype",
+        "prelude",
+        "st",
+        "tailrec",
+        "tuples",
+        "unfoldable"
+      ]
+    },
+    "tuples": {
+      "type": "registry",
+      "version": "7.0.0",
+      "integrity": "sha256-BKy7EfK8S1KeTCwyWqyW1wwcpSAQuh3IsczSVgS6fzY=",
+      "dependencies": [
+        "control",
+        "invariant",
+        "prelude"
+      ]
+    },
+    "type-equality": {
+      "type": "registry",
+      "version": "4.0.1",
+      "integrity": "sha256-BBqYOSnAKmayRvR5mtZoCf4SlYs2ipatD/+5nQx73aw=",
+      "dependencies": []
+    },
+    "unfoldable": {
+      "type": "local",
+      "path": "../gopurs-unfoldable",
+      "dependencies": [
+        "foldable-traversable",
+        "maybe",
+        "partial",
+        "prelude",
+        "tuples"
       ]
     },
     "unsafe-coerce": {
