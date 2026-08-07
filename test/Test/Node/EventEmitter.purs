@@ -6,7 +6,7 @@ import Data.Foldable (for_)
 import Data.Tuple.Nested ((/\))
 import Effect.Class (liftEffect)
 import Effect.Ref as Ref
-import Effect.Uncurried (EffectFn1, EffectFn2, mkEffectFn1, runEffectFn1, runEffectFn2, runEffectFn3, runEffectFn4)
+import Effect.Uncurried (mkEffectFn1, runEffectFn2, runEffectFn3, runEffectFn4)
 import Node.EventEmitter (EventEmitter, EventHandle(..), on, on_, once, once_, prependListener, prependListener_, prependOnceListener, prependOnceListener_, unsafeEmitFn1, unsafeEmitFn2, unsafeEmitFn3)
 import Node.EventEmitter as EventEmitter
 import Node.EventEmitter.UtilTypes (EventHandle1)

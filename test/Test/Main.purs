@@ -6,8 +6,8 @@ import Effect (Effect)
 import Effect.Aff (launchAff_)
 import Test.Node.EventEmitter as EventEmitter
 import Test.Spec.Reporter (consoleReporter)
-import Test.Spec.Runner (runSpec)
+import Test.Spec.Runner (runSpecPure)
 
 main :: Effect Unit
-main = launchAff_ $ runSpec [ consoleReporter ] do
+main = launchAff_ $ runSpecPure [ consoleReporter ] do
   EventEmitter.spec

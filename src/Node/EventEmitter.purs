@@ -79,7 +79,7 @@ import Prelude
 import Data.Either (Either(..))
 import Data.Function.Uncurried (Fn3, runFn3)
 import Effect (Effect)
-import Effect.Uncurried (EffectFn1, EffectFn2, EffectFn3, EffectFn4, EffectFn5, EffectFn6, EffectFn7, EffectFn8, EffectFn9, EffectFn10, mkEffectFn1, mkEffectFn2, mkEffectFn3, mkEffectFn4, mkEffectFn5, mkEffectFn6, mkEffectFn7, mkEffectFn8, mkEffectFn9, mkEffectFn10, runEffectFn1, runEffectFn2, runEffectFn3, runEffectFn4)
+import Effect.Uncurried (EffectFn1, EffectFn2, EffectFn3, EffectFn4, mkEffectFn1, mkEffectFn2, mkEffectFn3, mkEffectFn4, runEffectFn1, runEffectFn2, runEffectFn3)
 import Node.Symbol (JsSymbol)
 import Unsafe.Coerce (unsafeCoerce)
 
@@ -367,20 +367,4 @@ unsafeEmitFn2 = mkEffectFn3 \a b c -> gopursUnsafeEmitFn2 a b c
 unsafeEmitFn3 :: forall a b. EffectFn4 EventEmitter String a b Boolean
 unsafeEmitFn3 = mkEffectFn4 \a b c d -> gopursUnsafeEmitFn3 a b c d
 
-unsafeEmitFn4 :: forall a b c. EffectFn5 EventEmitter String a b c Boolean
-unsafeEmitFn4 = mkEffectFn5 \a b c d e -> gopursUnsafeEmitFn4 a b c d e
 
-unsafeEmitFn5 :: forall a b c d. EffectFn6 EventEmitter String a b c d Boolean
-unsafeEmitFn5 = mkEffectFn6 \a b c d e f -> gopursUnsafeEmitFn5 a b c d e f
-
-unsafeEmitFn6 :: forall a b c d e. EffectFn7 EventEmitter String a b c d e Boolean
-unsafeEmitFn6 = mkEffectFn7 \a b c d e f g -> gopursUnsafeEmitFn6 a b c d e f g
-
-unsafeEmitFn7 :: forall a b c d e f. EffectFn8 EventEmitter String a b c d e f Boolean
-unsafeEmitFn7 = mkEffectFn8 \a b c d e f g h -> gopursUnsafeEmitFn7 a b c d e f g h
-
-unsafeEmitFn8 :: forall a b c d e f g. EffectFn9 EventEmitter String a b c d e f g Boolean
-unsafeEmitFn8 = mkEffectFn9 \a b c d e f g h i -> gopursUnsafeEmitFn8 a b c d e f g h i
-
-unsafeEmitFn9 :: forall a b c d e f g h. EffectFn10 EventEmitter String a b c d e f g h Boolean
-unsafeEmitFn9 = mkEffectFn10 \a b c d e f g h i j -> gopursUnsafeEmitFn9 a b c d e f g h i j
