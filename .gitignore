@@ -9,3 +9,6 @@
 /.psa*
 /.spago
 /.vscode
+.DS_Store
+.spago
+output
