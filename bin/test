@@ -14,11 +14,7 @@ spago build || { echo "Spago build failed"; exit 1; }
 echo "=== Generating Go code with gopurs ==="
 node ../gopurs/bin/gopurs.js --main Test.Main || exit 1
 
-echo "=== Patching Test.Spec.Runner exit FFI ==="
-if [ -f "output/Test.Spec.Runner/Test_Spec_Runner_ffi.go" ]; then
-    sed -i '' 's|import "gopurs/output/gopurs_runtime"|import (\n\t"gopurs/output/gopurs_runtime"\n\t"os"\n)|g' output/Test.Spec.Runner/Test_Spec_Runner_ffi.go
-    sed -i '' 's|var _Gopurs_Exit = gopurs_runtime.Func(func(_ gopurs_runtime.Value) gopurs_runtime.Value { panic("FFI not implemented: exit"); return gopurs_runtime.Value{} })|var _Gopurs_Exit = gopurs_runtime.Func(func(code gopurs_runtime.Value) gopurs_runtime.Value { return gopurs_runtime.Func(func(_ gopurs_runtime.Value) gopurs_runtime.Value { os.Exit(int(code.IntVal)); return gopurs_runtime.Value{} }) })|g' output/Test.Spec.Runner/Test_Spec_Runner_ffi.go
-fi
+
 echo "=== Compiling and running Go test binary ==="
 if [ -d "output/Test.Main" ]; then
     cd output
