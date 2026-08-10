@@ -83,7 +83,7 @@ func GopursUnsafeEmitFn1(emitter gopurs_runtime.Value, eventName string, arg1 in
 	e.mu.Unlock()
 
 	for _, l := range list {
-		gopurs_runtime.Apply(l.cb, arg1.(gopurs_runtime.Value))
+		gopurs_runtime.Apply(l.cb, gopurs_runtime.Value{})
 	}
 	return true
 }
@@ -106,7 +106,7 @@ func GopursUnsafeEmitFn2(emitter gopurs_runtime.Value, eventName string, arg1 go
 	e.mu.Unlock()
 
 	for _, l := range list {
-		gopurs_runtime.UncurriedApp2(l.cb, arg1, arg2.(gopurs_runtime.Value))
+		gopurs_runtime.Apply(l.cb, arg1)
 	}
 	return true
 }
@@ -129,7 +129,7 @@ func GopursUnsafeEmitFn3(emitter gopurs_runtime.Value, eventName string, arg1, a
 	e.mu.Unlock()
 
 	for _, l := range list {
-		gopurs_runtime.UncurriedApp3(l.cb, arg1, arg2, arg3.(gopurs_runtime.Value))
+		gopurs_runtime.UncurriedApp2(l.cb, arg1, arg2)
 	}
 	return true
 }
@@ -198,7 +198,7 @@ func GopursUnsafeEmitFn4(emitter gopurs_runtime.Value, eventName string, arg1, a
 	e.mu.Unlock()
 
 	for _, l := range list {
-		gopurs_runtime.UncurriedApp4(l.cb, arg1, arg2, arg3, arg4.(gopurs_runtime.Value))
+		gopurs_runtime.UncurriedApp3(l.cb, arg1, arg2, arg3)
 	}
 	return true
 }
@@ -221,7 +221,7 @@ func GopursUnsafeEmitFn5(emitter gopurs_runtime.Value, eventName string, arg1, a
 	e.mu.Unlock()
 
 	for _, l := range list {
-		gopurs_runtime.UncurriedApp5(l.cb, arg1, arg2, arg3, arg4, arg5.(gopurs_runtime.Value))
+		gopurs_runtime.UncurriedApp4(l.cb, arg1, arg2, arg3, arg4)
 	}
 	return true
 }
@@ -244,7 +244,7 @@ func GopursUnsafeEmitFn6(emitter gopurs_runtime.Value, eventName string, arg1, a
 	e.mu.Unlock()
 
 	for _, l := range list {
-		gopurs_runtime.UncurriedApp6(l.cb, arg1, arg2, arg3, arg4, arg5, arg6.(gopurs_runtime.Value))
+		gopurs_runtime.UncurriedApp5(l.cb, arg1, arg2, arg3, arg4, arg5)
 	}
 	return true
 }
@@ -267,7 +267,7 @@ func GopursUnsafeEmitFn7(emitter gopurs_runtime.Value, eventName string, arg1, a
 	e.mu.Unlock()
 
 	for _, l := range list {
-		gopurs_runtime.UncurriedApp7(l.cb, arg1, arg2, arg3, arg4, arg5, arg6, arg7.(gopurs_runtime.Value))
+		gopurs_runtime.UncurriedApp6(l.cb, arg1, arg2, arg3, arg4, arg5, arg6)
 	}
 	return true
 }
@@ -290,7 +290,7 @@ func GopursUnsafeEmitFn8(emitter gopurs_runtime.Value, eventName string, arg1, a
 	e.mu.Unlock()
 
 	for _, l := range list {
-		gopurs_runtime.UncurriedApp8(l.cb, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8.(gopurs_runtime.Value))
+		gopurs_runtime.UncurriedApp7(l.cb, arg1, arg2, arg3, arg4, arg5, arg6, arg7)
 	}
 	return true
 }
@@ -313,7 +313,7 @@ func GopursUnsafeEmitFn9(emitter gopurs_runtime.Value, eventName string, arg1, a
 	e.mu.Unlock()
 
 	for _, l := range list {
-		gopurs_runtime.UncurriedApp9(l.cb, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9.(gopurs_runtime.Value))
+		gopurs_runtime.UncurriedApp8(l.cb, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8)
 	}
 	return true
 }
