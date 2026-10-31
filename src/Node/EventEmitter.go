@@ -21,6 +21,17 @@ func (e *EventEmitter) GetEventEmitter() *EventEmitter {
 	return e
 }
 
+// Payloads may observe listener registration after the emitter lock is released.
+type EventEmitterListenerObserver interface {
+	OnListenerAdded(eventName string)
+}
+
+func nodeEventEmitter_notifyListenerAdded(e *EventEmitter, eventName string) {
+	if observer, ok := e.Any.(EventEmitterListenerObserver); ok {
+		observer.OnListenerAdded(eventName)
+	}
+}
+
 func NewImpl(_ interface{}) interface{} {
 	return &EventEmitter{
 		listeners:    make(map[string][]listener),
@@ -137,8 +148,9 @@ func GopursUnsafeEmitFn3(emitter gopurs_runtime.Value, eventName string, arg1, a
 func GopursUnsafeOn(emitter gopurs_runtime.Value, eventName string, cb gopurs_runtime.Value, _ interface{}) interface{} {
 	e := nodeEventEmitter_extractEventEmitter(emitter)
 	e.mu.Lock()
-	defer e.mu.Unlock()
 	e.listeners[eventName] = append(e.listeners[eventName], listener{cb: cb, once: false})
+	e.mu.Unlock()
+	nodeEventEmitter_notifyListenerAdded(e, eventName)
 	return nil
 }
 
@@ -159,24 +171,27 @@ func GopursUnsafeOff(emitter gopurs_runtime.Value, eventName string, cb gopurs_r
 func GopursUnsafeOnce(emitter gopurs_runtime.Value, eventName string, cb gopurs_runtime.Value, _ interface{}) interface{} {
 	e := nodeEventEmitter_extractEventEmitter(emitter)
 	e.mu.Lock()
-	defer e.mu.Unlock()
 	e.listeners[eventName] = append(e.listeners[eventName], listener{cb: cb, once: true})
+	e.mu.Unlock()
+	nodeEventEmitter_notifyListenerAdded(e, eventName)
 	return nil
 }
 
 func GopursUnsafePrependListener(emitter gopurs_runtime.Value, eventName string, cb gopurs_runtime.Value, _ interface{}) interface{} {
 	e := nodeEventEmitter_extractEventEmitter(emitter)
 	e.mu.Lock()
-	defer e.mu.Unlock()
 	e.listeners[eventName] = append([]listener{{cb: cb, once: false}}, e.listeners[eventName]...)
+	e.mu.Unlock()
+	nodeEventEmitter_notifyListenerAdded(e, eventName)
 	return nil
 }
 
 func GopursUnsafePrependOnceListener(emitter gopurs_runtime.Value, eventName string, cb gopurs_runtime.Value, _ interface{}) interface{} {
 	e := nodeEventEmitter_extractEventEmitter(emitter)
 	e.mu.Lock()
-	defer e.mu.Unlock()
 	e.listeners[eventName] = append([]listener{{cb: cb, once: true}}, e.listeners[eventName]...)
+	e.mu.Unlock()
+	nodeEventEmitter_notifyListenerAdded(e, eventName)
 	return nil
 }
 
